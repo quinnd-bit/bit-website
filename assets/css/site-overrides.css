@@ -456,3 +456,140 @@ a[href*="saltwaterdigital"],
     overflow-wrap: break-word !important;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Strict Icon Suppression: Clean Corporate Aesthetic (No House Icons, etc.)
+   -------------------------------------------------------------------------- */
+.elementor-icon,
+.elementor-icon-wrapper,
+.elementor-icon-box-icon,
+.elementor-view-default .elementor-icon,
+.elementor-widget-icon,
+.elementor-widget-icon-box .elementor-icon-box-icon,
+.e-font-icon-svg {
+  display: none !important;
+}
+
+/* Retain dropdown caret and mobile menu toggle */
+.elementor-menu-toggle svg,
+.sub-arrow svg {
+  display: inline-block !important;
+}
+
+/* Ensure icon-box titles and descriptions flow naturally without empty icon space */
+.elementor-icon-box-wrapper {
+  display: block !important;
+  text-align: left !important;
+}
+
+.elementor-icon-box-content {
+  width: 100% !important;
+}
+
+.elementor-11 .elementor-element.elementor-element-ca5a629 .elementor-icon-box-title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--bit-navy-deep) !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* --------------------------------------------------------------------------
+   OpenAI / Palantir Style Generated Cards & Subtle Abstract Highlights
+   -------------------------------------------------------------------------- */
+.bit-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(11, 31, 51, 0.08);
+  border-radius: var(--bit-radius-panel);
+  padding: 36px 32px;
+  box-shadow: 0 1px 3px rgba(11, 31, 51, 0.04), 0 6px 20px -4px rgba(11, 31, 51, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Abstract subtle gradient wash behind cards on hover (like OpenAI cards) */
+.bit-card::before {
+  content: ;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at top right, rgba(127, 195, 224, 0.12), transparent 70%);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.bit-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(31, 77, 122, 0.25);
+  box-shadow: 0 16px 36px -6px rgba(11, 31, 51, 0.12), 0 4px 12px -2px rgba(11, 31, 51, 0.06);
+}
+
+.bit-card:hover::before {
+  opacity: 1;
+}
+
+/* Featured card highlight for Mariposa foundation model */
+.bit-card--featured {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(31, 77, 122, 0.22);
+}
+
+.bit-card--featured::after {
+  content: ;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #0284c7, #38bdf8, #7fc3e0);
+  opacity: 1;
+}
+
+/* Meta Pill Groups on Cards */
+.bit-meta-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  margin-bottom: 22px;
+}
+
+.bit-meta-pill {
+  font-family: var(--bit-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--bit-radius-pill);
+  padding: 3px 10px;
+  letter-spacing: 0.2px;
+}
+
+/* Modernized Stakeholder Cards on Homepage */
+.elementor-11 .elementor-element.elementor-element-ca5a629 > div {
+  background: #ffffff !important;
+  border: 1px solid rgba(11, 31, 51, 0.08) !important;
+  border-radius: var(--bit-radius-card) !important;
+  padding: 24px 20px !important;
+  box-shadow: 0 2px 8px rgba(11, 31, 51, 0.04) !important;
+  transition: all 0.25s ease !important;
+}
+
+.elementor-11 .elementor-element.elementor-element-ca5a629 > div:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(31, 77, 122, 0.25) !important;
+  box-shadow: 0 8px 20px rgba(11, 31, 51, 0.08) !important;
+}
+
+/* Subtle modern glass header with clean border */
+.site-header,
+.elementor-location-header {
+  border-bottom: 1px solid rgba(11, 31, 51, 0.08) !important;
+  box-shadow: 0 1px 12px rgba(11, 31, 51, 0.03) !important;
+}
