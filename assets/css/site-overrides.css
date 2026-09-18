@@ -1,0 +1,209 @@
+/* ==========================================================================
+   Building Insights Together - Design System Overrides
+   Harmonized with BIT Forge Interface Standards for External Marketing
+   ========================================================================== */
+
+:root {
+  /* Core Forge Design Tokens */
+  --bit-color-deep: #0b1630;
+  --bit-color-action: #1f4d7a;
+  --bit-color-focus: #7fc3e0;
+  --bit-color-signal: #d98ea0;
+  --bit-color-ink: #23272e;
+  --bit-color-muted: #6e7581;
+  --bit-color-paper: #fafbfc;
+  --bit-color-line: #dcdfe5;
+
+  /* Normalized Radius Scale */
+  --bit-radius-control: 8px;
+  --bit-radius-card: 10px;
+  --bit-radius-dialog: 12px;
+  --bit-radius-pill: 9999px;
+
+  /* Focus and Shadow Tokens */
+  --bit-focus-ring: 0 0 0 3px rgba(127, 195, 224, 0.45);
+  --bit-card-shadow: 0 2px 8px -2px rgba(11, 22, 48, 0.06), 0 1px 3px -1px rgba(11, 22, 48, 0.04);
+  --bit-card-shadow-hover: 0 8px 24px -4px rgba(11, 22, 48, 0.1), 0 3px 6px -2px rgba(11, 22, 48, 0.06);
+
+  /* Elementor Global Palette overrides for consistency */
+  --e-global-color-primary: var(--bit-color-deep) !important;
+  --e-global-color-secondary: var(--bit-color-action) !important;
+  --e-global-color-text: var(--bit-color-ink) !important;
+  --e-global-color-accent: var(--bit-color-action) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Elements & Buttons: Unified Radius & Modern Feel
+   -------------------------------------------------------------------------- */
+.elementor-button,
+.elementor-widget-button .elementor-button,
+.elementor-button-link,
+button.elementor-button,
+a.elementor-button,
+input[type="submit"],
+.e-form__buttons__wrapper__button-next,
+.e-form__buttons__wrapper__button-previous {
+  border-radius: var(--bit-radius-control) !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 1px 2px rgba(11, 22, 48, 0.08) !important;
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.elementor-button:hover,
+.elementor-widget-button .elementor-button:hover,
+input[type="submit"]:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(31, 77, 122, 0.2) !important;
+}
+
+.elementor-button:focus-visible,
+input[type="submit"]:focus-visible,
+a:focus-visible {
+  outline: none !important;
+  box-shadow: var(--bit-focus-ring) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Forms & Controls
+   -------------------------------------------------------------------------- */
+.elementor-field-group .elementor-field,
+.elementor-field-group input,
+.elementor-field-group textarea,
+.elementor-field-group select {
+  border-radius: var(--bit-radius-control) !important;
+  border: 1px solid var(--bit-color-line) !important;
+  background-color: #ffffff !important;
+  color: var(--bit-color-ink) !important;
+  padding: 12px 14px !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  font-size: 15px !important;
+}
+
+.elementor-field-group .elementor-field:focus,
+.elementor-field-group input:focus,
+.elementor-field-group textarea:focus,
+.elementor-field-group select:focus {
+  border-color: var(--bit-color-action) !important;
+  outline: none !important;
+  box-shadow: var(--bit-focus-ring) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cards, Callouts & Accordions
+   -------------------------------------------------------------------------- */
+.elementor-widget-nested-accordion .e-n-accordion-item,
+.e-n-accordion > .e-n-accordion-item,
+.elementor-widget-icon-box.elementor-element-boxed,
+.e-con.e-con-boxed,
+.elementor-card {
+  border-radius: var(--bit-radius-card) !important;
+}
+
+/* Nested accordion cards on /about page */
+.e-n-accordion > .e-n-accordion-item {
+  border: 1px solid var(--bit-color-line) !important;
+  border-radius: var(--bit-radius-card) !important;
+  margin-bottom: 12px !important;
+  background-color: var(--bit-color-paper) !important;
+  overflow: hidden !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.e-n-accordion > .e-n-accordion-item:hover {
+  border-color: #bac4d0 !important;
+  box-shadow: var(--bit-card-shadow) !important;
+}
+
+.e-n-accordion > .e-n-accordion-item > .e-n-accordion-item-title {
+  padding: 18px 22px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Header & Navigation Refinements
+   -------------------------------------------------------------------------- */
+.site-header {
+  border-bottom: 1px solid rgba(220, 223, 229, 0.7);
+  background-color: rgba(251, 253, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.elementor-nav-menu--main .elementor-item {
+  transition: color 0.15s ease !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.elementor-nav-menu--main .elementor-item:hover,
+.elementor-nav-menu--main .elementor-item.elementor-item-active {
+  color: var(--bit-color-action) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Footer & Credit Adjustments
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--bit-color-deep) !important;
+  color: #9aa4b2 !important;
+}
+
+.site-footer a {
+  color: #cbd5e1 !important;
+  transition: color 0.15s ease !important;
+}
+
+.site-footer a:hover {
+  color: #ffffff !important;
+}
+
+/* Ensure no stray Saltwater text appears */
+.saltwater-credit,
+a[href*="saltwaterdigital"] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility & Usability Enhancements
+   -------------------------------------------------------------------------- */
+a {
+  text-decoration-skip-ink: auto;
+}
+
+/* Touch targets on mobile */
+@media (max-width: 767px) {
+  .elementor-menu-toggle {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Tighten excessive 9-10% margins and padding */
+  .elementor-section,
+  .e-con {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Prevent awkward display wraps on mobile */
+  .elementor-heading-title {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+  }
+
+  h1.elementor-heading-title {
+    font-size: clamp(32px, 8vw, 48px) !important;
+    line-height: 1.15 !important;
+  }
+
+  h2.elementor-heading-title {
+    font-size: clamp(24px, 6vw, 36px) !important;
+    line-height: 1.25 !important;
+  }
+}
