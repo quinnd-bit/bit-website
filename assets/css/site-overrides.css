@@ -1,209 +1,499 @@
 /* ==========================================================================
-   Building Insights Together - Design System Overrides
-   Harmonized with BIT Forge Interface Standards for External Marketing
+   Building Insights Together - Enterprise Tech Design System
+   Influenced by OpenAI, Palantir, and the BIT Forge Interface Standard
    ========================================================================== */
 
 :root {
-  /* Core Forge Design Tokens */
-  --bit-color-deep: #0b1630;
-  --bit-color-action: #1f4d7a;
-  --bit-color-focus: #7fc3e0;
-  --bit-color-signal: #d98ea0;
-  --bit-color-ink: #23272e;
-  --bit-color-muted: #6e7581;
-  --bit-color-paper: #fafbfc;
-  --bit-color-line: #dcdfe5;
+  /* Brand Tech Palette */
+  --bit-navy-950: #050b17;
+  --bit-navy-900: #0b1630;
+  --bit-navy-850: #101c3d;
+  --bit-navy-800: #17274f;
+  --bit-navy-700: #1f3868;
 
-  /* Normalized Radius Scale */
+  --bit-action: #1f4d7a;
+  --bit-action-bright: #2d6fa8;
+  --bit-focus: #7fc3e0;
+  --bit-signal: #d98ea0;
+  --bit-accent-cyan: #38bdf8;
+  --bit-accent-emerald: #10b981;
+
+  --bit-ink-dark: #0f172a;
+  --bit-ink-body: #334155;
+  --bit-ink-muted: #64748b;
+  --bit-ink-light: #94a3b8;
+  --bit-ink-faint: #cbd5e1;
+
+  --bit-surface-dark: #0b1630;
+  --bit-surface-card: #0f1f42;
+  --bit-surface-light: #f8fafc;
+  --bit-surface-white: #ffffff;
+  --bit-border-dark: rgba(255, 255, 255, 0.08);
+  --bit-border-dark-highlight: rgba(127, 195, 224, 0.25);
+  --bit-border-light: #e2e8f0;
+
+  /* Typography */
+  --bit-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bit-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Unified Radii */
+  --bit-radius-sm: 4px;
   --bit-radius-control: 8px;
-  --bit-radius-card: 10px;
-  --bit-radius-dialog: 12px;
+  --bit-radius-card: 12px;
+  --bit-radius-dialog: 16px;
   --bit-radius-pill: 9999px;
 
-  /* Focus and Shadow Tokens */
+  /* Focus & Elevation */
   --bit-focus-ring: 0 0 0 3px rgba(127, 195, 224, 0.45);
-  --bit-card-shadow: 0 2px 8px -2px rgba(11, 22, 48, 0.06), 0 1px 3px -1px rgba(11, 22, 48, 0.04);
-  --bit-card-shadow-hover: 0 8px 24px -4px rgba(11, 22, 48, 0.1), 0 3px 6px -2px rgba(11, 22, 48, 0.06);
-
-  /* Elementor Global Palette overrides for consistency */
-  --e-global-color-primary: var(--bit-color-deep) !important;
-  --e-global-color-secondary: var(--bit-color-action) !important;
-  --e-global-color-text: var(--bit-color-ink) !important;
-  --e-global-color-accent: var(--bit-color-action) !important;
+  --bit-glow-cyan: 0 0 25px -5px rgba(56, 189, 248, 0.25);
 }
 
 /* --------------------------------------------------------------------------
-   Interactive Elements & Buttons: Unified Radius & Modern Feel
+   Global Resets & Foundation
    -------------------------------------------------------------------------- */
-.elementor-button,
-.elementor-widget-button .elementor-button,
-.elementor-button-link,
-button.elementor-button,
-a.elementor-button,
-input[type="submit"],
-.e-form__buttons__wrapper__button-next,
-.e-form__buttons__wrapper__button-previous {
-  border-radius: var(--bit-radius-control) !important;
-  letter-spacing: 0.5px !important;
-  font-weight: 500 !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  box-shadow: 0 1px 2px rgba(11, 22, 48, 0.08) !important;
-  min-height: 44px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.elementor-button:hover,
-.elementor-widget-button .elementor-button:hover,
-input[type="submit"]:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(31, 77, 122, 0.2) !important;
-}
-
-.elementor-button:focus-visible,
-input[type="submit"]:focus-visible,
-a:focus-visible {
-  outline: none !important;
-  box-shadow: var(--bit-focus-ring) !important;
+body {
+  font-family: var(--bit-font-sans);
+  color: var(--bit-ink-body);
+  background-color: var(--bit-navy-950);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* --------------------------------------------------------------------------
-   Forms & Controls
-   -------------------------------------------------------------------------- */
-.elementor-field-group .elementor-field,
-.elementor-field-group input,
-.elementor-field-group textarea,
-.elementor-field-group select {
-  border-radius: var(--bit-radius-control) !important;
-  border: 1px solid var(--bit-color-line) !important;
-  background-color: #ffffff !important;
-  color: var(--bit-color-ink) !important;
-  padding: 12px 14px !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-  font-size: 15px !important;
-}
-
-.elementor-field-group .elementor-field:focus,
-.elementor-field-group input:focus,
-.elementor-field-group textarea:focus,
-.elementor-field-group select:focus {
-  border-color: var(--bit-color-action) !important;
-  outline: none !important;
-  box-shadow: var(--bit-focus-ring) !important;
-}
-
-/* --------------------------------------------------------------------------
-   Cards, Callouts & Accordions
-   -------------------------------------------------------------------------- */
-.elementor-widget-nested-accordion .e-n-accordion-item,
-.e-n-accordion > .e-n-accordion-item,
-.elementor-widget-icon-box.elementor-element-boxed,
-.e-con.e-con-boxed,
-.elementor-card {
-  border-radius: var(--bit-radius-card) !important;
-}
-
-/* Nested accordion cards on /about page */
-.e-n-accordion > .e-n-accordion-item {
-  border: 1px solid var(--bit-color-line) !important;
-  border-radius: var(--bit-radius-card) !important;
-  margin-bottom: 12px !important;
-  background-color: var(--bit-color-paper) !important;
-  overflow: hidden !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.e-n-accordion > .e-n-accordion-item:hover {
-  border-color: #bac4d0 !important;
-  box-shadow: var(--bit-card-shadow) !important;
-}
-
-.e-n-accordion > .e-n-accordion-item > .e-n-accordion-item-title {
-  padding: 18px 22px !important;
-}
-
-/* --------------------------------------------------------------------------
-   Header & Navigation Refinements
+   Header & Modern Navigation (Tech Polish)
    -------------------------------------------------------------------------- */
 .site-header {
-  border-bottom: 1px solid rgba(220, 223, 229, 0.7);
-  background-color: rgba(251, 253, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(5, 11, 23, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.elementor-14 .elementor-element.elementor-element-7d99fef {
+  background-color: transparent !important;
 }
 
 .elementor-nav-menu--main .elementor-item {
-  transition: color 0.15s ease !important;
+  color: #e2e8f0 !important;
+  font-family: var(--bit-font-sans) !important;
+  font-size: 14px !important;
   font-weight: 500 !important;
   letter-spacing: 0.3px !important;
+  padding: 10px 16px !important;
+  transition: all 0.2s ease !important;
 }
 
 .elementor-nav-menu--main .elementor-item:hover,
+.elementor-nav-menu--main .elementor-item:focus,
 .elementor-nav-menu--main .elementor-item.elementor-item-active {
-  color: var(--bit-color-action) !important;
+  color: #38bdf8 !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-radius: var(--bit-radius-control) !important;
 }
 
-/* --------------------------------------------------------------------------
-   Footer & Credit Adjustments
-   -------------------------------------------------------------------------- */
-.site-footer {
-  background-color: var(--bit-color-deep) !important;
-  color: #9aa4b2 !important;
-}
-
-.site-footer a {
-  color: #cbd5e1 !important;
-  transition: color 0.15s ease !important;
-}
-
-.site-footer a:hover {
-  color: #ffffff !important;
-}
-
-/* Ensure no stray Saltwater text appears */
-.saltwater-credit,
-a[href*="saltwaterdigital"] {
+.elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,
+.elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after {
   display: none !important;
 }
 
-/* --------------------------------------------------------------------------
-   Accessibility & Usability Enhancements
-   -------------------------------------------------------------------------- */
-a {
-  text-decoration-skip-ink: auto;
+.elementor-nav-menu--dropdown {
+  background: rgba(11, 22, 48, 0.98) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: var(--bit-radius-card) !important;
+  padding: 8px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Touch targets on mobile */
-@media (max-width: 767px) {
-  .elementor-menu-toggle {
-    min-width: 44px !important;
-    min-height: 44px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
+.elementor-nav-menu--dropdown .elementor-item {
+  color: #cbd5e1 !important;
+  font-size: 13.5px !important;
+  padding: 10px 14px !important;
+  border-radius: var(--bit-radius-control) !important;
+  transition: all 0.15s ease !important;
+}
 
-  /* Tighten excessive 9-10% margins and padding */
-  .elementor-section,
-  .e-con {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
+.elementor-nav-menu--dropdown .elementor-item:hover {
+  background-color: rgba(56, 189, 248, 0.1) !important;
+  color: #ffffff !important;
+}
 
-  /* Prevent awkward display wraps on mobile */
-  .elementor-heading-title {
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
-  }
+/* Header Action CTA Button */
+.elementor-14 .elementor-element.elementor-element-1931771 .elementor-button {
+  background: linear-gradient(135deg, #1f4d7a 0%, #0284c7 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-radius: var(--bit-radius-control) !important;
+  padding: 8px 18px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25) !important;
+}
 
-  h1.elementor-heading-title {
-    font-size: clamp(32px, 8vw, 48px) !important;
-    line-height: 1.15 !important;
-  }
+.elementor-14 .elementor-element.elementor-element-1931771 .elementor-button:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4) !important;
+}
 
-  h2.elementor-heading-title {
-    font-size: clamp(24px, 6vw, 36px) !important;
-    line-height: 1.25 !important;
+/* --------------------------------------------------------------------------
+   Dynamic Abstract Canvas & Hero Styling
+   -------------------------------------------------------------------------- */
+.bit-hero-canvas-container {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #101f42 0%, #050b17 75%) !important;
+}
+
+.bit-hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bit-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Badge */
+.bit-tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--bit-radius-pill);
+  padding: 6px 14px;
+  color: #7fc3e0;
+  font-family: var(--bit-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.bit-tech-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
+  animation: bitPulse 2s infinite ease-in-out;
+}
+
+@keyframes bitPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* --------------------------------------------------------------------------
+   Tech Typography Scale
+   -------------------------------------------------------------------------- */
+.bit-title-large {
+  font-family: var(--bit-font-sans) !important;
+  font-size: clamp(38px, 5.5vw, 68px) !important;
+  font-weight: 600 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+  color: #ffffff !important;
+  max-width: 900px;
+}
+
+.bit-gradient-text {
+  background: linear-gradient(135deg, #ffffff 40%, #7fc3e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bit-lead-text {
+  font-family: var(--bit-font-sans) !important;
+  font-size: clamp(17px, 2vw, 21px) !important;
+  line-height: 1.55 !important;
+  color: #94a3b8 !important;
+  max-width: 740px;
+  margin-top: 18px !important;
+  font-weight: 400 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Product Showcase (Core & Forge)
+   -------------------------------------------------------------------------- */
+.bit-product-section {
+  padding: 100px 0;
+  background: #081124;
+  border-top: 1px solid var(--bit-border-dark);
+  border-bottom: 1px solid var(--bit-border-dark);
+  position: relative;
+}
+
+.bit-tabs-nav {
+  display: inline-flex;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--bit-radius-control);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 40px;
+}
+
+.bit-tab-trigger {
+  padding: 10px 22px;
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bit-tab-trigger:hover {
+  color: #ffffff;
+}
+
+.bit-tab-trigger.active {
+  background: rgba(31, 77, 122, 0.6);
+  color: #ffffff;
+  border: 1px solid rgba(127, 195, 224, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bit-tab-panel {
+  display: none;
+  animation: bitFadeIn 0.35s ease;
+}
+
+.bit-tab-panel.active {
+  display: block;
+}
+
+@keyframes bitFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bit-product-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.bit-tech-card {
+  background: linear-gradient(180deg, rgba(16, 28, 61, 0.6) 0%, rgba(11, 22, 48, 0.8) 100%);
+  border: 1px solid var(--bit-border-dark);
+  border-radius: var(--bit-radius-card);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bit-tech-card:hover {
+  border-color: var(--bit-border-dark-highlight);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5), var(--bit-glow-cyan);
+}
+
+.bit-tech-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(127, 195, 224, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bit-tech-card:hover::before {
+  opacity: 1;
+}
+
+.bit-card-tag {
+  font-family: var(--bit-font-mono);
+  font-size: 11px;
+  color: #38bdf8;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.bit-card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.bit-card-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.bit-tech-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #7fc3e0;
+  text-decoration: none;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.bit-tech-card-link:hover {
+  color: #ffffff;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Lineage & Consulting Section (Ian Hamilton heritage -> Software scale)
+   -------------------------------------------------------------------------- */
+.bit-lineage-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .bit-lineage-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
+}
+
+.bit-code-snippet {
+  background: #030712;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--bit-radius-control);
+  padding: 20px 24px;
+  font-family: var(--bit-font-mono);
+  font-size: 13px;
+  color: #e2e8f0;
+  line-height: 1.7;
+  overflow-x: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.bit-code-comment { color: #64748b; }
+.bit-code-keyword { color: #f43f5e; }
+.bit-code-string { color: #38bdf8; }
+.bit-code-func { color: #a855f7; }
+.bit-code-var { color: #34d399; }
+
+/* --------------------------------------------------------------------------
+   Modern Enterprise Footer
+   -------------------------------------------------------------------------- */
+.bit-tech-footer {
+  background: #030712 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 80px 0 40px !important;
+  color: #94a3b8 !important;
+  font-family: var(--bit-font-sans);
+}
+
+.bit-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 900px) {
+  .bit-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bit-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.bit-footer-col h4 {
+  font-family: var(--bit-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.bit-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bit-footer-links li {
+  margin-bottom: 12px;
+}
+
+.bit-footer-links a {
+  color: #94a3b8;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.bit-footer-links a:hover {
+  color: #38bdf8;
+}
+
+.bit-footer-bottom {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  padding: 30px 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #64748b;
+}
+
+@media (max-width: 600px) {
+  .bit-footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+/* Remove legacy elements completely */
+.elementor-location-footer,
+.elementor-social-icons-wrapper,
+.elementor-widget-social-icons,
+a[href*="saltwaterdigital"] {
+  display: none !important;
 }
