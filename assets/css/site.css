@@ -1929,3 +1929,28 @@ h2.section-heading {
 @media (max-width:360px) {
   .site-header .header-contact { gap:0 }
 }
+
+
+/* One compact arrow family for links, review controls, and explanatory diagrams. */
+.site-arrow {
+  display:inline-block;
+  width:14px;
+  height:14px;
+  flex:0 0 auto;
+  vertical-align:-2px;
+}
+.site-arrow-wrap:not(.card-arrow):not(.flow-arrow):not(.architecture-arrow) {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:inherit;
+  line-height:1;
+  vertical-align:middle;
+}
+.card-arrow .site-arrow { width:16px;height:16px }
+.flow-arrow { display:flex;align-items:center;justify-content:center;min-height:24px }
+.architecture-arrow { display:inline-flex;align-items:center;justify-content:center;line-height:1 }
+.architecture-arrow .site-arrow,.evidence-join .site-arrow { width:18px;height:18px }
+.anchor-nav a,.footer-bottom > a { display:inline-flex;align-items:center;gap:8px }
+.review-open .site-arrow,.review-image-footer .site-arrow { width:12px;height:12px }
+@media(max-width:900px) { .header-contact .site-arrow { width:12px;height:12px } }
