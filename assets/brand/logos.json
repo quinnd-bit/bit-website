@@ -1,0 +1,56 @@
+[
+  {
+    "id": "open-frame",
+    "name": "Open Frame",
+    "description": "An open architectural plan paired with precise BIT lettering, brought into a compact signature.",
+    "composition": "Mark + BIT",
+    "file": "compositions/open-frame-signature.svg",
+    "mark": "compositions/open-frame-mark.svg",
+    "viewBox": "0 0 210 64"
+  },
+  {
+    "id": "confluence",
+    "name": "Confluence",
+    "description": "Converging flows become the T itself, connecting a familiar acronym with a distinctive shared structure.",
+    "composition": "Integrated BIT",
+    "file": "compositions/confluence-signature.svg",
+    "mark": "compositions/confluence-mark.svg",
+    "viewBox": "0 0 178 64"
+  },
+  {
+    "id": "neighbourhood",
+    "name": "Neighbourhood",
+    "description": "A cluster of buildings accompanies the full name in a warm, balanced three-line signature.",
+    "composition": "Full name + mark",
+    "file": "compositions/neighbourhood-signature.svg",
+    "mark": "compositions/neighbourhood-mark.svg",
+    "viewBox": "0 0 205 80"
+  },
+  {
+    "id": "open-frame-full",
+    "name": "Open Signature",
+    "description": "An architectural frame introduces the full Building Insights Together name, with BIT as a quiet signature above.",
+    "composition": "Full name + BIT",
+    "file": "compositions/open-frame-full-signature.svg",
+    "mark": "compositions/open-frame-full-mark.svg",
+    "viewBox": "0 0 240 72"
+  },
+  {
+    "id": "interlock",
+    "name": "Interlock",
+    "description": "The stepped architectural joint becomes the B itself: one compact, integrated BIT signature.",
+    "composition": "Integrated BIT",
+    "file": "compositions/interlock-signature.svg",
+    "mark": "compositions/interlock-mark.svg",
+    "viewBox": "0 0 224 72"
+  },
+  {
+    "id": "fieldwork",
+    "name": "Fieldwork",
+    "description": "Four soft land parcels, editorial BIT lettering, and the full name in a carefully balanced stacked signature.",
+    "composition": "BIT + full name",
+    "file": "compositions/fieldwork-signature.svg",
+    "mark": "compositions/fieldwork-mark.svg",
+    "viewBox": "0 0 240 80"
+  }
+]

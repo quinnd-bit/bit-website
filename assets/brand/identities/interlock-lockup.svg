@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 64" fill="none" color="#172a24" role="img" aria-label="BIT — Interlock">
+<g fill="currentColor">
+  <path d="M10 10H54V22H36V32H22V54H10Z"/>
+  <path d="M54 26V54H26V36H40V26Z"/>
+</g>
+<g transform="translate(88 0)"><g fill="currentColor" fill-rule="evenodd">
+  <path d="M18 14H45C53.3 14 58 17.8 58 23.8C58 27.8 55.9 30.7 52.4 32C57.1 33.2 59.7 36.4 59.7 41C59.7 48 54.5 52 45.4 52H18V14ZM25.3 20.4V29.5H43.8C48.4 29.5 50.7 28 50.7 25C50.7 21.9 48.4 20.4 43.8 20.4H25.3ZM25.3 35.4V45.6H44.2C49.7 45.6 52.3 43.9 52.3 40.5C52.3 37.1 49.7 35.4 44.2 35.4H25.3Z"/>
+  <path d="M79 14H86.4V52H79Z"/>
+  <path d="M104 14H152V20.6H131.7V52H124.3V20.6H104Z"/>
+</g></g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" color="#172a24" role="img" aria-label="Fieldwork symbol">
+<g xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <path d="M16 10H28V20C28 24 25 27 21 27H10V17C10 12.7 12.1 10 16 10Z"/>
+  <path d="M35 10H44C50.5 10 54 13.5 54 20V29H45C39 29 35 25 35 19V10Z"/>
+  <path d="M10 34H20C25 34 29 38 29 43V54H19C13 54 10 50 10 44V34Z"/>
+  <path d="M45 36H54V46C54 51.3 50.7 54 46 54H36V45C36 39.8 39.8 36 45 36Z"/>
+</g>
+
+</svg>

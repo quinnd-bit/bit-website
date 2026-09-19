@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" color="#172a24" role="img" aria-label="Contour symbol">
+<g fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 23C23 23 28 12 40 12H52"/>
+  <path d="M12 34C25 34 30 22 42 22H52"/>
+  <path d="M12 45C26 45 31 33 44 33H52"/>
+  <path d="M12 55C26 55 34 44 46 44H52"/>
+</g>
+</svg>
