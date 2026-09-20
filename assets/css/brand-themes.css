@@ -112,10 +112,12 @@
 }
 
 
-/* Each choice is a complete, fixed logo composition. */
+/* New institutional directions and the two earlier favourites. */
+:root[data-logo="civic-frame"] .brand-variant[data-logo-variant="civic-frame"] { display:block; }
+:root[data-logo="neighbourhood-ii"] .brand-variant[data-logo-variant="neighbourhood-ii"] { display:block; }
+:root[data-logo="shared-structure"] .brand-variant[data-logo-variant="shared-structure"] { display:block; }
+:root[data-logo="assembly"] .brand-variant[data-logo-variant="assembly"] { display:block; }
+:root[data-logo="public-square"] .brand-variant[data-logo-variant="public-square"] { display:block; }
+:root[data-logo="open-charter"] .brand-variant[data-logo-variant="open-charter"] { display:block; }
 :root[data-logo="open-frame"] .brand-variant[data-logo-variant="open-frame"] { display:block; }
-:root[data-logo="confluence"] .brand-variant[data-logo-variant="confluence"] { display:block; }
 :root[data-logo="neighbourhood"] .brand-variant[data-logo-variant="neighbourhood"] { display:block; }
-:root[data-logo="open-frame-full"] .brand-variant[data-logo-variant="open-frame-full"] { display:block; }
-:root[data-logo="interlock"] .brand-variant[data-logo-variant="interlock"] { display:block; }
-:root[data-logo="fieldwork"] .brand-variant[data-logo-variant="fieldwork"] { display:block; }

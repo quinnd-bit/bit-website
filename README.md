@@ -27,11 +27,11 @@ The site includes a skip link, labelled navigation and form controls, keyboard-o
 
 ## Review View
 
-Review View opens the first time a reviewer visits, then minimises into the fixed panel at the lower left. Its controls change four complete colour systems and six finished vector logo compositions instantly, including the header and footer. Each option is a complete design: compact BIT and mark, integrated BIT lettering, or a full company-name signature. Use the small minus button to collapse the controls, or select “Review View” to reopen the explanation.
+Review View opens the first time a reviewer visits, then minimises into the fixed panel at the lower left. Its controls change four complete colour systems and eight finished vector logo compositions instantly, including the header and footer. Each option is a complete design: compact BIT and mark, integrated BIT lettering, or a full company-name signature. Use the small minus button to collapse the controls, or select “Review View” to reopen the explanation.
 
 - Palettes: Canopy, Estuary, Terracotta, Graphite.
-- Logo designs: Open Frame, Confluence, Neighbourhood, Open Signature, Interlock, Fieldwork. There is no separate logo-display control.
-- Visual selections and panel state are saved in this browser on this site. “Reset” restores Canopy, Open Frame, and the Street level photograph.
+- New logo directions: Civic Frame, Neighbourhood II, Shared Structure, Assembly, Public Square, Open Charter. Earlier favourites Open Frame and Neighbourhood remain available. Every choice is a complete signature.
+- Visual selections and panel state are saved in this browser on this site. “Reset” restores Canopy, Civic Frame, and the Street level photograph.
 - The original SVG files and descriptive manifests are under `assets/brand/`.
 - Palette variables are in `assets/css/brand-themes.css`; review interface styling is in `assets/css/review-view.css`.
 - `assets/js/review-init.js` restores the visual choice before paint; `assets/js/review-view.js` controls the modal and dock.
@@ -49,4 +49,4 @@ The picture icon in the review dock flips the controls between brand options and
 
 ### Logo compositions
 
-`assets/brand/compositions/` contains six complete SVG signatures and six companion favicon marks. All lettering is outlined; no installed font is required. `logos.json` defines each composition and its favicon. Review View presents only complete signatures, with no mark-only or wordmark-only modes. The five retained identity selections stay valid; a saved Contour selection migrates to Open Signature. Old `logoFormat` preferences are ignored and removed when preferences are saved. Palette, city-image, and panel preferences are preserved. Earlier assets remain available as legacy files.
+`assets/brand/institutional/` contains the six new institutional directions, with complete outlined SVG signatures and matching favicon marks. `assets/brand/compositions/` retains the earlier collection; Open Frame and Neighbourhood remain available in Review View as comparisons. `logos.json` describes the eight active choices and their collections. All lettering is outlined, so no installed fonts are required. There is no independent logo-display mode. Older selections for the two favourites are preserved; other retired choices fall back to Civic Frame. Palette, city-image, and panel preferences remain intact.

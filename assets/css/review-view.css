@@ -271,3 +271,22 @@
   .review-modal-logos .review-choice-face { padding:8px 6px }
   .review-composition-caption { font-size:7px }
 }
+
+
+/* A new collection, with the two strongest earlier directions kept alongside. */
+.brand-variant[data-logo-collection="new"] { width:210px;height:62px }
+.site-footer .brand-variant[data-logo-collection="new"] { width:240px;height:76px }
+.review-modal-favourites { border-top:1px solid var(--review-line);padding-top:17px }
+.review-modal-favourites .review-choice-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+.review-modal-favourites .review-choice-face { min-height:94px }
+.review-modal-favourites .review-composition-caption { display:none }
+.review-dock-favourites { border-top:1px solid var(--review-line);padding-top:10px }
+@media(max-width:900px) {
+  .site-header .brand-variant[data-logo-collection="new"] { width:200px;height:54px }
+}
+@media(max-width:600px) {
+  .site-header .brand-variant[data-logo-collection="new"] { width:172px;height:51px }
+}
+@media(max-width:360px) {
+  .site-header .brand-variant[data-logo-collection="new"] { width:146px;height:49px }
+}

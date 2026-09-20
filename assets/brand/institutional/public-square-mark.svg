@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" color="#172a24" role="img" aria-label="Public Square symbol">
+<g fill="currentColor">
+ <path d="M9 9H28V17H17V28H9Z"/>
+ <path d="M36 9H55V28H47V17H36Z"/>
+ <path d="M55 36V55H36V47H47V36Z"/>
+ <path d="M28 55H9V36H17V47H28Z"/>
+</g>
+</svg>
