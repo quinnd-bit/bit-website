@@ -25,17 +25,15 @@ The owner plans to provision this mailbox. Activate and verify it before public 
 
 The site includes a skip link, labelled navigation and form controls, keyboard-operable product tabs, an Escape-dismissable mobile menu, visible focus states, and reduced-motion support. Content remains readable without scroll effects. Product details are also available on the capabilities page.
 
-## Review View
+## Production identity
 
-Review View opens the first time a reviewer visits, then minimises into the fixed panel at the lower left. Its controls change four complete colour systems and eight finished vector logo compositions instantly, including the header and footer. Each option is a complete design: compact BIT and mark, integrated BIT lettering, or a full company-name signature. Use the small minus button to collapse the controls, or select “Review View” to reopen the explanation.
+The production site uses one consistent visual direction across all six main pages:
 
-- Palettes: Canopy, Estuary, Terracotta, Graphite.
-- New logo directions: Civic Frame, Neighbourhood II, Shared Structure, Assembly, Public Square, Open Charter. Earlier favourites Open Frame and Neighbourhood remain available. Every choice is a complete signature.
-- Visual selections and panel state are saved in this browser on this site. “Reset” restores Canopy, Civic Frame, and the Street level photograph.
-- The original SVG files and descriptive manifests are under `assets/brand/`.
-- Palette variables are in `assets/css/brand-themes.css`; review interface styling is in `assets/css/review-view.css`.
-- `assets/js/review-init.js` restores the visual choice before paint; `assets/js/review-view.js` controls the modal and dock.
-- The chooser is part of this review version across all six main pages. It makes local visual changes only and does not publish or send selections.
+- the Graphite colour system is defined directly in `assets/css/site.css`;
+- the earlier-favourite Neighbourhood signature is used in every header and footer;
+- the homepage City plan artwork is the fixed city-model image.
+
+There is no browser-saved design state, visual chooser, or review interface. The original identity studies remain under `assets/brand/` as design source material, but they are not loaded or selectable at runtime.
 
 ## International work and pilot building analysis
 
@@ -43,10 +41,6 @@ The website attributes report authorship and convening to Building Insights, and
 
 Whole-building analysis combines Earth observation and an ML-powered, privacy-protective LiDAR premises-scanning app. The app is described as in development / pilot testing, as confirmed by the owner. Specific privacy mechanisms and measured scanning performance are not yet claimed.
 
-### City image alternatives
+### Production artwork
 
-The picture icon in the review dock flips the controls between brand options and three city visuals: Street level, City & canopy, and City plan. The homepage city-model image has its own flip control with the same choices. Photo options reuse the original site assets; City plan is an original abstract SVG study. Image selection persists with the existing review preferences, with a photograph as the default for older saved settings. Inactive sides are inert, Escape returns to the front, and reduced-motion preferences skip the rotation animation.
-
-### Logo compositions
-
-`assets/brand/institutional/` contains the six new institutional directions, with complete outlined SVG signatures and matching favicon marks. `assets/brand/compositions/` retains the earlier collection; Open Frame and Neighbourhood remain available in Review View as comparisons. `logos.json` describes the eight active choices and their collections. All lettering is outlined, so no installed fonts are required. There is no independent logo-display mode. Older selections for the two favourites are preserved; other retired choices fall back to Civic Frame. Palette, city-image, and panel preferences remain intact.
+The City plan is an original abstract SVG study embedded in the homepage so its colours follow the Graphite design tokens. The Neighbourhood signature is an outlined vector composition, so it does not require an installed font. Alternative identity and image studies are retained only as source assets for future design work.

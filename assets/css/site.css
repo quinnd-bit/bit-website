@@ -1,12 +1,30 @@
 :root {
-  --paper:#f4f3ed;
+  --paper:#f3f2ee;
   --white:#fff;
-  --ink:#1d2923;
-  --muted:#637067;
-  --forest:#172a24;
-  --forest-light:#233a30;
-  --leaf:#d7e9bc;
-  --line:#d5d9d0;
+  --ink:#2b2e2c;
+  --muted:#5d6059;
+  --forest:#282b29;
+  --forest-light:#3c403b;
+  --leaf:#e5dcbf;
+  --line:#d4d4ca;
+  --surface-soft:#e9e8e0;
+  --surface-feature:#deded3;
+  --accent:#857854;
+  --link-hover:#74633b;
+  --action-hover:#4c514a;
+  --focus:#7b6a3f;
+  --dark-text:#ecebe0;
+  --dark-muted:#cbcebf;
+  --dark-line:#7b8170;
+  --diagram-bg:#32372f;
+  --diagram-surface:#454b3e;
+  --diagram-line:#949d82;
+  --diagram-accent:#d7d4b6;
+  --footer-bg:#1f2320;
+  --footer-text:#e5e7dc;
+  --footer-muted:#c0c5b4;
+  --footer-line:#646d5c;
+  --hero-rgb:24,27,24;
   --gutter:clamp(24px,5vw,88px);
   --sans:Arial,Helvetica,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Consolas,monospace
@@ -1774,11 +1792,17 @@ h2.section-heading {
 }
 
 /* Purpose leads the narrative; the product system supports it. */
-.brand-library { position: absolute; width: 0; height: 0; overflow: hidden; }
 .brand { gap: 12px; }
-.brand-symbol { width: 48px; height: 48px; flex: 0 0 48px; color: currentColor; }
-.brand-symbol svg { display: none; width: 100%; height: 100%; }
-.brand-wordmark { display: flex; flex-direction: column; gap: 2px; font-size: 14px; font-weight: 500; line-height: 1.13; letter-spacing: -.025em; }
+.brand-signature {
+  display:block;
+  width:210px;
+  height:58px;
+  flex:0 0 auto;
+  background:currentColor;
+  -webkit-mask:url('/assets/brand/compositions/neighbourhood-signature.svg') center / contain no-repeat;
+  mask:url('/assets/brand/compositions/neighbourhood-signature.svg') center / contain no-repeat;
+}
+.site-footer .brand-signature { width:240px;height:76px }
 .desktop-nav { gap: 26px; }
 .values-section { display: grid; grid-template-columns: .85fr 1.4fr; gap: 8%; }
 .values-heading h2 { margin: 28px 0; font-size: clamp(34px,3.3vw,54px); }
@@ -1795,7 +1819,6 @@ h2.section-heading {
   .site-header { gap: 22px; }
   .desktop-nav { gap: 18px; font-size: 12px; }
   .header-contact { padding-left: 20px; gap: 18px; }
-  .brand-wordmark { font-size: 12px; }
   .values-section { grid-template-columns: 1fr; gap: 40px; }
   .values-heading > p:not(.eyebrow) { max-width: 100%; }
 }
@@ -1813,18 +1836,16 @@ h2.section-heading {
   .principle-number { grid-row: span 2; padding-top: 4px; }
   .values-grid h3 { margin: 0 0 14px; font-size: 25px; }
   .values-grid p { grid-column: 2; }
-  .brand-symbol { width: 38px; height: 38px; flex-basis: 38px; }
-  .brand-wordmark { font-size: 11px; }
+  .site-header .brand-signature { width:172px;height:51px }
   .brand { gap: 7px; }
   .site-header { gap: 14px; }
   .header-contact { font-size: 11px; gap: 8px; }
   .hero h1 { font-size: clamp(45px,9vw,60px); line-height: 1.03; }
 }
 @media (max-width: 360px) {
-  .site-header .brand-wordmark { font-size: 10px; }
   .site-header { gap: 10px; }
   .header-contact span { display: none; }
-  .brand-symbol { width: 34px; height: 34px; flex-basis: 34px; }
+  .site-header .brand-signature { width:146px;height:49px }
   .hero h1 { font-size: 45px; }
 }
 
@@ -1931,7 +1952,7 @@ h2.section-heading {
 }
 
 
-/* One compact arrow family for links, review controls, and explanatory diagrams. */
+/* One compact arrow family for links and explanatory diagrams. */
 .site-arrow {
   display:inline-block;
   width:14px;
@@ -1952,5 +1973,16 @@ h2.section-heading {
 .architecture-arrow { display:inline-flex;align-items:center;justify-content:center;line-height:1 }
 .architecture-arrow .site-arrow,.evidence-join .site-arrow { width:18px;height:18px }
 .anchor-nav a,.footer-bottom > a { display:inline-flex;align-items:center;gap:8px }
-.review-open .site-arrow,.review-image-footer .site-arrow { width:12px;height:12px }
 @media(max-width:900px) { .header-contact .site-arrow { width:12px;height:12px } }
+
+/* The production city-model image is the City plan artwork. */
+.city-visual { position:relative;min-width:0;align-self:stretch;scroll-margin-top:120px }
+.city-scene { display:block;position:relative;height:100%;min-height:425px;margin:0;overflow:hidden }
+.city-plan-art { position:absolute;inset:0;display:grid;align-items:center;background:var(--diagram-bg) }
+.city-plan-art > svg { display:block;width:100%;height:100%;max-height:100% }
+.city-scene figcaption { display:flex;flex-wrap:wrap;justify-content:space-between;gap:9px 16px;position:absolute;right:0;bottom:0;left:0;padding:40px 24px 22px;background:linear-gradient(transparent,var(--diagram-bg) 65%);color:var(--dark-text);font-size:11px;line-height:1.4 }
+.city-scene figcaption > span:first-child { font:10px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em }
+@media(max-width:760px) {
+  .city-visual,.city-scene { min-height:430px }
+  .city-scene figcaption { padding:40px 20px 20px }
+}

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Building Insights Together</title>
+  <desc id="description">A graphite city plan with the Building Insights Together neighbourhood identity and the words Better places begin with insight.</desc>
+  <defs>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#282b29"/>
+      <stop offset="0.64" stop-color="#282b29" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#282b29" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#32372f"/>
+  <g transform="translate(456) scale(1.5)" stroke="#949d82" fill="none">
+    <g stroke-width="1" opacity=".32">
+      <path d="M82 72H335M82 183H316M82 211H307M82 336H260"/>
+      <path d="M82 72V336M224 72V183M224 211V336"/>
+      <path d="M250 72V183M250 211V336"/>
+      <path d="M382 72H518V336H335"/>
+      <path d="M372 183H518M361 211H518"/>
+    </g>
+    <g fill="#454b3e" stroke-width="1.2">
+      <path d="M102 92H203V115H126V146H167V163H102Z"/>
+      <path d="M185 133H203V163H185Z"/>
+      <path d="M271 92H327L320 114H292V163H271Z"/>
+      <path d="M309 136H331L325 163H309Z"/>
+      <path d="M102 232H128V292H203V316H102Z"/>
+      <path d="M147 232H203V269H181V253H147Z"/>
+      <path d="M270 232H305L299 253H270Z"/>
+      <path d="M270 273H291L281 316H270Z"/>
+      <path d="M400 92H498V113H423V141H400Z"/>
+      <path d="M454 132H498V163H474V153H454Z"/>
+      <path d="M386 232H411V294H441V316H363L370 294H386Z"/>
+      <path d="M432 232H498V316H470V255H432Z"/>
+    </g>
+    <path d="M355 61C355 103 361 119 350 155C339 191 330 214 324 246C316 291 297 326 289 358H322C329 323 349 293 355 251C361 213 369 190 380 158C390 127 383 99 390 61Z" fill="#d7d4b6" stroke="none" opacity=".13"/>
+    <path d="M374 61C363 100 377 126 366 158C356 190 346 217 340 252C333 293 315 326 305 358" stroke="#d7d4b6" stroke-width="1.25" opacity=".72"/>
+    <g fill="#d7d4b6" stroke="none" opacity=".4">
+      <path transform="translate(4 -6)" d="M150 126C143 123 138 129 140 136C137 142 143 148 149 146C155 151 163 145 162 140C166 134 160 126 154 129C153 127 152 127 150 126Z"/>
+      <path d="M166 269C159 266 154 272 156 278C152 284 158 290 165 287C171 292 179 287 177 280C180 273 173 267 166 269Z"/>
+      <path d="M435 133C428 129 423 134 425 140C421 147 427 154 433 151C441 154 446 148 443 143C447 137 441 131 435 133Z"/>
+      <path d="M439 272C431 270 427 277 430 283C428 289 434 293 440 290C447 293 453 287 450 281C452 276 445 270 439 272Z"/>
+      <path d="M356 224C351 220 345 224 346 229C342 234 347 240 352 238C358 241 363 235 360 231C364 227 360 222 356 224Z"/>
+      <path d="M338 290C332 287 328 292 330 297C327 302 332 307 337 304C343 306 347 300 344 296C347 291 342 288 338 290Z"/>
+    </g>
+    <g stroke="#d7d4b6" stroke-width="1.2" opacity=".8">
+      <path d="M327 197H373M314 279L364 286"/>
+    </g>
+  </g>
+  <rect width="780" height="630" fill="url(#fade)"/>
+
+  <g transform="translate(64 58)" color="#ecebe0">
+    <rect x="0" y="0" width="22" height="22" rx="4" fill="currentColor"/>
+    <rect x="2" y="36" width="18" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="4"/>
+    <path d="M36 8H48C50.2 8 52 9.8 52 12V49C52 51.2 50.2 53 48 53H40C37.8 53 36 51.2 36 49V8Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+    <text x="72" y="17" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="19">Building</text>
+    <text x="72" y="38" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="19">Insights</text>
+    <text x="72" y="59" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="19">Together</text>
+  </g>
+
+  <text x="64" y="286" fill="#ecebe0" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="400" letter-spacing="-2">Better places begin</text>
+  <text x="64" y="354" fill="#ecebe0" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="400" letter-spacing="-2">with insight.</text>
+  <text x="64" y="550" fill="#cbcebf" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="2.2">PEOPLE / PLACE / POSSIBILITY</text>
+</svg>
