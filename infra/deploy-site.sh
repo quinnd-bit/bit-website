@@ -24,6 +24,7 @@ publish_dir="$(mktemp -d "${TMPDIR:-/tmp}/bit-website-publish.XXXXXX")"
 trap 'rm -rf "$publish_dir"' EXIT
 
 cp "$repo_root/index.html" "$repo_root/404.html" "$repo_root/favicon.ico" \
+  "$repo_root/apple-touch-icon.png" \
   "$repo_root/favicon-neighbourhood-graphite.svg" "$publish_dir/"
 
 mkdir -p \
@@ -35,9 +36,8 @@ cp "$repo_root/assets/brand/compositions/neighbourhood-signature.svg" \
   "$publish_dir/assets/brand/compositions/"
 cp "$repo_root/assets/css/site.css" "$publish_dir/assets/css/"
 cp "$repo_root/assets/js/site.js" "$publish_dir/assets/js/"
-cp "$repo_root/assets/icons/favicon-neighbourhood-graphite-32x32.png" \
-  "$repo_root/assets/icons/apple-touch-icon-neighbourhood-graphite.png" \
-  "$repo_root/assets/icons/favicon.svg" \
+cp "$repo_root/assets/icons/favicon-graphite-v2-32x32.png" \
+  "$repo_root/assets/icons/favicon-graphite-v2.svg" \
   "$publish_dir/assets/icons/"
 cp -R "$repo_root/assets/images" "$publish_dir/assets/images"
 

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Building Insights Together">
+  <rect width="64" height="64" rx="13" fill="#f3f2ee"/>
+  <g fill="none" stroke="#282b29" stroke-width="3.6" stroke-linejoin="round">
+    <rect x="11.8" y="37.8" width="15.4" height="14.4" rx="2"/>
+    <path d="M40 17H50.5C52.43 17 54 18.57 54 20.5V50.5C54 52.43 52.43 54 50.5 54H43.5C41.57 54 40 52.43 40 50.5V17Z"/>
+  </g>
+  <rect x="10" y="10" width="19" height="19" rx="3.5" fill="#282b29"/>
+</svg>
