@@ -37,6 +37,7 @@ cp "$repo_root/assets/css/site.css" "$publish_dir/assets/css/"
 cp "$repo_root/assets/js/site.js" "$publish_dir/assets/js/"
 cp "$repo_root/assets/icons/favicon-neighbourhood-graphite-32x32.png" \
   "$repo_root/assets/icons/apple-touch-icon-neighbourhood-graphite.png" \
+  "$repo_root/assets/icons/favicon.svg" \
   "$publish_dir/assets/icons/"
 cp -R "$repo_root/assets/images" "$publish_dir/assets/images"
 
@@ -49,6 +50,7 @@ aws cloudformation deploy \
   --region "$aws_region" \
   --stack-name "$stack_name" \
   --template-file "$repo_root/infra/site.yaml" \
+  --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides \
     "DomainName=$domain_name" \
     "WwwDomainName=$www_domain_name" \

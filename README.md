@@ -52,9 +52,15 @@ ENABLE_CANONICAL_REDIRECTS=true \
 
 The old WordPress host should remain available for at least the previous DNS TTL after cutover so its A record can be restored quickly if needed.
 
-## Selected identity
+## Production identity and artwork
 
-The production site uses the Graphite palette, the Neighbourhood identity, and the city-plan image. Alternate identity assets remain under `assets/brand/` as source material, but the production manifest publishes only the selected signature. There is no public identity chooser or review interface.
+The production site uses one consistent visual direction across all six main pages:
+
+- the Graphite colour system is defined directly in `assets/css/site.css`;
+- the Neighbourhood signature appears in every header and footer;
+- the homepage City plan artwork is the fixed city-model image.
+
+There is no browser-saved design state, visual chooser, or review interface. The City plan is an original abstract SVG served from `assets/images/city-plan.svg`, and the Neighbourhood signature is an outlined vector composition that does not require an installed font. `assets/images/og-preview.png` carries the same production identity into link previews. Alternative identity studies remain under `assets/brand/` as source material, but only the selected signature is loaded at runtime.
 
 ## International work and Helios
 

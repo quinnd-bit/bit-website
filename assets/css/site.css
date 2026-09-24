@@ -1960,3 +1960,15 @@ h2.section-heading {
 .architecture-arrow-bidirectional .site-arrow { width:26px;height:18px }
 .anchor-nav a,.footer-bottom > a { display:inline-flex;align-items:center;gap:8px }
 @media(max-width:900px) { .header-contact .site-arrow { width:12px;height:12px } }
+
+/* The production city-model image is the City plan artwork. */
+.city-visual { position:relative;min-width:0;align-self:stretch;scroll-margin-top:120px }
+.city-scene { display:block;position:relative;height:100%;min-height:425px;margin:0;overflow:hidden }
+.city-plan-art { position:absolute;inset:0;display:grid;align-items:center;background:var(--diagram-bg) }
+.city-plan-art > svg { display:block;width:100%;height:100%;max-height:100% }
+.city-scene figcaption { display:flex;flex-wrap:wrap;justify-content:space-between;gap:9px 16px;position:absolute;right:0;bottom:0;left:0;padding:40px 24px 22px;background:linear-gradient(transparent,var(--diagram-bg) 65%);color:var(--dark-text);font-size:11px;line-height:1.4 }
+.city-scene figcaption > span:first-child { font:10px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em }
+@media(max-width:760px) {
+  .city-visual,.city-scene { min-height:430px }
+  .city-scene figcaption { padding:40px 20px 20px }
+}
