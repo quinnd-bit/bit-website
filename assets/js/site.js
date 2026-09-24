@@ -96,19 +96,4 @@
     update();
   }
 
-  const form = document.querySelector('#inquiry-form');
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const data = new FormData(form);
-    const subject = `BIT enquiry: ${data.get('interest')}`;
-    const body = [data.get('message'), '', `Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Organisation: ${data.get('organisation') || 'Not specified'}`, `Interest: ${data.get('interest')}`].join('\n');
-    const url = `mailto:info@building-insights.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    const status = document.querySelector('#inquiry-status');
-    status.textContent = 'Your email app will open a draft. Nothing has been sent by this website. If no app opens, email info@building-insights.org directly.';
-    window.location.href = url;
-  });
-  const interest = new URLSearchParams(window.location.search).get('interest');
-  const interestField = document.querySelector('select[name="interest"]');
-  if (interest && interestField && Array.from(interestField.options).some((option) => option.value === interest)) interestField.value = interest;
 })();

@@ -1132,55 +1132,66 @@ p {
   object-fit:cover
 }
 
-.inquiry-form {
-  max-width:760px;
+.contact-page {
+  background:var(--forest)
+}
+
+.contact-minimal {
+  min-height:calc(100svh - 88px);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:100px;
+  background:var(--forest);
+  color:var(--paper)
+}
+
+.contact-minimal>.eyebrow {
+  color:var(--dark-muted)
+}
+
+.contact-minimal h1 {
   width:100%
 }
 
-.inquiry-form label {
-  display:block;
-  font-size:13px;
-  margin:0 0 8px
-}
-
-.inquiry-form input,.inquiry-form select,.inquiry-form textarea {
-  display:block;
-  border:1px solid var(--muted);
-  background:transparent;
-  border-radius:0;
+.contact-email {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
   width:100%;
-  padding:12px 14px;
-  color:var(--ink);
-  margin-bottom:25px
+  padding-bottom:20px;
+  border-bottom:1px solid var(--dark-line);
+  color:var(--paper);
+  font-size:clamp(21px,5.2vw,82px);
+  line-height:1.02;
+  letter-spacing:-.055em;
+  transition:color .2s,border-color .2s
 }
 
-.inquiry-form textarea {
-  min-height:160px;
-  resize:vertical
-}
-
-.form-row {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px
-}
-
-.form-status {
-  margin-top:20px;
-  font-size:14px
-}
-
-.contact-details {
-  margin-top:35px
-}
-
-.contact-details a {
+.contact-email>span:first-child {
+  min-width:0;
   overflow-wrap:anywhere
 }
 
-.inquiry-form button:disabled {
-  cursor:not-allowed;
-  opacity:.5
+.contact-email .site-arrow-wrap {
+  display:flex;
+  flex:0 0 auto;
+  padding-bottom:.04em
+}
+
+.contact-email .site-arrow {
+  width:clamp(36px,5vw,76px);
+  height:clamp(36px,5vw,76px)
+}
+
+.contact-email:hover {
+  color:var(--leaf);
+  border-color:var(--diagram-accent)
+}
+
+.contact-email:focus-visible {
+  outline-color:var(--leaf)
 }
 
 .page-hero+.image-wide {
@@ -1566,9 +1577,18 @@ p {
     gap:18px 30px;
     font-size:12px
   }
-  .form-row {
-    grid-template-columns:1fr;
-    gap:0
+  .contact-minimal {
+    min-height:calc(100svh - 76px);
+    gap:80px
+  }
+  .contact-email {
+    gap:14px;
+    padding-bottom:16px;
+    font-size:clamp(21px,6.1vw,30px)
+  }
+  .contact-email .site-arrow {
+    width:32px;
+    height:32px
   }
 }
 
@@ -1686,20 +1706,6 @@ h2.section-heading {
 
 .editorial-grid .text-link {
   margin-top:22px
-}
-
-.contact-details {
-  margin-bottom:32px
-}
-
-.contact-details+.image-wide {
-  height:240px;
-  filter:saturate(.6)
-}
-
-.inquiry-form .small-note[role=status] {
-  margin-top:20px;
-  max-width:50ch
 }
 
 .section-dark .editorial-grid article {
