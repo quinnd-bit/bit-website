@@ -1101,6 +1101,16 @@ p {
   filter:saturate(.7)
 }
 
+.mariposa-map-link {
+  display:block;
+  min-width:0
+}
+
+.mariposa-map-link>img {
+  width:100%;
+  height:auto
+}
+
 .feature-row .eyebrow {
   margin-bottom:25px
 }
