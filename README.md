@@ -1,14 +1,26 @@
-# BIT website
+# BIT beta review website
 
-The production website for Building Insights Together. It is a dependency-free static site: no CMS, application server, package installation, or build step is required.
+This branch clones the published production site at commit `3725ed2`, adding the original shared sticky-note interface recovered from the September 21 S3 versions. Production content and assets stay unchanged.
 
-Preview it locally from the repository root:
+## Review site
 
-```sh
-python3 -m http.server 4173
-```
+URL: https://beta.building-insights.org/
 
-Then open `http://127.0.0.1:4173/`.
+HTTP Basic authentication protects every page, asset and API request. The independent Lambda notes endpoint verifies the same credentials itself. Passwords are never stored in this repository; only the SHA-256 hash of the Authorization header is supplied as a CloudFormation NoEcho parameter and Lambda environment variable.
+
+Use **Site notes → Add a note**, select a place on the page, enter a name and suggestion, and save. Notes are shared across browsers, scoped to the page, anchored to page elements, and refreshed every 30 seconds. Data is stored in a separate encrypted DynamoDB table with point-in-time recovery.
+
+## Isolated deployment
+
+Beta stack: `bit-website-beta-review` in `ca-central-1`. Template: `infra/beta-review.yaml`. This stack has its own S3 bucket, CloudFront distribution, Lambda function and DynamoDB table.
+
+Publish content updates with `./infra/deploy-review.sh`. It refuses the historical production destination. Do not use `infra/deploy-site.sh` for beta changes: that historical script targets production.
+
+The beta hostname is transferred using CloudFront's same-account alias move. Only that alias is removed from the historical distribution; its production aliases, content, origins and behaviors remain unchanged. DNS should point the beta CNAME to `dj0cbhlehcc04.cloudfront.net` (the old CNAME may still reach beta through CloudFront hostname routing, but should be updated before retiring the old distribution).
+
+The production CloudFormation template on main still lists the beta alias from the prior promotion. Before any future production infrastructure update, remove that retired beta alias from its template to avoid attempting to reclaim the new beta domain.
+
+Robots directives and response headers exclude beta from search indexing. Production canonical URLs are intentionally retained.
 
 ## Main pages
 
@@ -28,42 +40,3 @@ The form prepares a `mailto:` draft addressed to `info@building-insights.org`. I
 ## Accessibility and motion
 
 The site includes a skip link, labelled navigation and form controls, keyboard-operable product tabs, an Escape-dismissable mobile menu, visible focus states, and reduced-motion support. Content remains readable without scroll effects. Product details are also available on the capabilities page.
-
-## Production hosting
-
-The historical CloudFormation stack name remains `bit-website-beta` so the existing private, versioned S3 bucket and CloudFront distribution can be promoted in place. The deployed architecture is production-only static hosting: it has no WordPress runtime, shared-notes service, API, Lambda function, or database.
-
-`infra/deploy-site.sh` creates a clean publication directory and synchronizes it with deletion enabled. This removes retired public paths instead of leaving excluded files in S3. Bucket versioning keeps prior object versions available for operational rollback without serving them publicly.
-
-Deploy using the issued `us-east-1` ACM certificate that covers `building-insights.org` and `*.building-insights.org`:
-
-```sh
-CERTIFICATE_ARN=arn:aws:acm:us-east-1:ACCOUNT_ID:certificate/CERTIFICATE_ID \
-./infra/deploy-site.sh
-```
-
-Keep canonical redirects disabled for the initial deployment. Once the apex and `www` DNS records point to the distribution and the live site has been verified, enable permanent redirects from `www` and `beta`:
-
-```sh
-CERTIFICATE_ARN=arn:aws:acm:us-east-1:ACCOUNT_ID:certificate/CERTIFICATE_ID \
-ENABLE_CANONICAL_REDIRECTS=true \
-./infra/deploy-site.sh
-```
-
-The old WordPress host should remain available for at least the previous DNS TTL after cutover so its A record can be restored quickly if needed.
-
-## Production identity and artwork
-
-The production site uses one consistent visual direction across all six main pages:
-
-- the Graphite colour system is defined directly in `assets/css/site.css`;
-- the Neighbourhood signature appears in every header and footer;
-- the homepage City plan artwork is the fixed city-model image.
-
-There is no browser-saved design state, visual chooser, or review interface. The City plan is an original abstract SVG served from `assets/images/city-plan.svg`, and the Neighbourhood signature is an outlined vector composition that does not require an installed font. `assets/images/og-preview.png` carries the same production identity into link previews. Alternative identity studies remain under `assets/brand/` as source material, but only the selected signature is loaded at runtime.
-
-## International work and Helios
-
-The website attributes report authorship and convening to Building Insights, and IEA EBC Annex 70 leadership to Ian Hamilton. Primary references are linked alongside the claims. Institutional names describe specific research contributions, not product endorsements.
-
-Helios is BIT's internal privacy-protecting building-energy product. It uses on-device machine learning to extract features from LiDAR observations of interior spaces, then combines them through a physics engine with exterior building and neighbourhood indicators served by Core. Helios can use a city foundation model where one is available or operate with broader indicators. The product is described as in development or pilot testing, as confirmed by the owner. Measured scanning and energy-modelling performance are not yet claimed.

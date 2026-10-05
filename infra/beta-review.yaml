@@ -1,0 +1,378 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: BIT password-protected beta review website with a private S3 origin and CloudFront delivery.
+
+Parameters:
+  CertificateArn:
+    Type: String
+  AuthHash:
+    Type: String
+    NoEcho: true
+    AllowedPattern: '^[a-f0-9]{64}$'
+  EnableBetaAlias:
+    Type: String
+    Default: 'false'
+    AllowedValues: ['true', 'false']
+Conditions:
+  HasBetaAlias: !Equals [!Ref EnableBetaAlias, 'true']
+
+Resources:
+  SiteBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: RetainExceptOnCreate
+    UpdateReplacePolicy: Retain
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - Key: Project
+          Value: BITWebsite
+        - Key: Environment
+          Value: beta
+
+  OriginAccess:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${AWS::StackName}-s3'
+        Description: Signed read access to the private BIT website bucket.
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  SiteCachePolicy:
+    Type: AWS::CloudFront::CachePolicy
+    Properties:
+      CachePolicyConfig:
+        Name: !Sub '${AWS::StackName}-site'
+        Comment: Compressed static content with short revalidation windows.
+        DefaultTTL: 300
+        MinTTL: 0
+        MaxTTL: 86400
+        ParametersInCacheKeyAndForwardedToOrigin:
+          CookiesConfig:
+            CookieBehavior: none
+          HeadersConfig:
+            HeaderBehavior: none
+          QueryStringsConfig:
+            QueryStringBehavior: none
+          EnableAcceptEncodingGzip: true
+          EnableAcceptEncodingBrotli: true
+
+  ResponseHeaders:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: !Sub '${AWS::StackName}-headers'
+        SecurityHeadersConfig:
+          ContentTypeOptions:
+            Override: true
+          FrameOptions:
+            FrameOption: DENY
+            Override: true
+          ReferrerPolicy:
+            ReferrerPolicy: strict-origin-when-cross-origin
+            Override: true
+          StrictTransportSecurity:
+            AccessControlMaxAgeSec: 31536000
+            IncludeSubdomains: false
+            Preload: false
+            Override: true
+        CustomHeadersConfig:
+          Items:
+            - Header: X-Robots-Tag
+              Value: noindex, nofollow, noarchive
+              Override: true
+            - Header: Permissions-Policy
+              Value: camera=(), microphone=(), geolocation=()
+              Override: true
+
+  AppRoutes:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: !Sub '${AWS::StackName}-routes'
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Require beta password for every page, asset, and API request.
+        Runtime: cloudfront-js-2.0
+      FunctionCode: !Sub |
+        var crypto = require('crypto');
+        function handler(event) {
+          var request = event.request;
+          var auth = request.headers.authorization ? request.headers.authorization.value : '';
+          if (crypto.createHash('sha256').update(auth).digest('hex') !== '${AuthHash}') {
+            return {statusCode: 401, statusDescription: 'Unauthorized',
+              headers: {'www-authenticate': {value: 'Basic realm="BIT beta", charset="UTF-8"'},
+              'cache-control': {value: 'no-store'}, 'content-type': {value: 'text/plain; charset=utf-8'}},
+              body: 'This BIT beta website requires a password.'};
+          }
+          if (request.uri.indexOf('/api/') !== 0) {
+            if (request.uri.endsWith('/')) request.uri += 'index.html';
+            else if (request.uri.substring(request.uri.lastIndexOf('/') + 1).indexOf('.') === -1) request.uri += '/index.html';
+          }
+          return request;
+        }
+
+  NotesTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: RetainExceptOnCreate
+    UpdateReplacePolicy: Retain
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pagePath
+          AttributeType: S
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pagePath
+          KeyType: HASH
+        - AttributeName: id
+          KeyType: RANGE
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  NotesRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: BetaNotesOnly
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: [dynamodb:Query, dynamodb:PutItem]
+                Resource: !GetAtt NotesTable.Arn
+
+  NotesFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.13
+      Handler: index.handler
+      Role: !GetAtt NotesRole.Arn
+      Timeout: 10
+      MemorySize: 128
+      ReservedConcurrentExecutions: 3
+      Environment:
+        Variables:
+          NOTES_TABLE: !Ref NotesTable
+          AUTH_HASH: !Ref AuthHash
+      Code:
+        ZipFile: |
+          import os, json, hashlib, hmac, uuid, math
+          from datetime import datetime, timezone
+          import boto3
+          from boto3.dynamodb.conditions import Key
+          
+          PAGES={'/','/about/','/capabilities/','/contact/','/offerings/','/global-status-report-for-buildings-and-construction/'}
+          table=boto3.resource('dynamodb').Table(os.environ['NOTES_TABLE'])
+          
+          def response(code,payload):
+              return {'statusCode':code,'headers':{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'},'body':json.dumps(payload)}
+          
+          def normalise(path):
+              if not isinstance(path,str): return ''
+              path=path.replace('/index.html','/')
+              return path if path.endswith('/') else path+'/'
+          
+          def handler(event,context):
+              headers={k.lower():v for k,v in event.get('headers',{}).items()}
+              digest=hashlib.sha256(headers.get('authorization','').encode()).hexdigest()
+              if not hmac.compare_digest(digest,os.environ['AUTH_HASH']):
+                  result=response(401,{'error':'Password required.'})
+                  result['headers']['WWW-Authenticate']='Basic realm="BIT beta", charset="UTF-8"'
+                  return result
+              method=event.get('requestContext',{}).get('http',{}).get('method','GET')
+              if event.get('rawPath')!='/api/sticky-notes': return response(404,{'error':'Not found.'})
+              if method=='GET':
+                  page=normalise((event.get('queryStringParameters') or {}).get('path','/'))
+                  if page not in PAGES: return response(400,{'error':'Unknown page.'})
+                  items=[]
+                  args={'KeyConditionExpression':Key('pagePath').eq(page)}
+                  while True:
+                      result=table.query(**args)
+                      items.extend(result.get('Items',[]))
+                      if 'LastEvaluatedKey' not in result: break
+                      args['ExclusiveStartKey']=result['LastEvaluatedKey']
+                  notes=[json.loads(item['noteJson']) for item in items]
+                  notes.sort(key=lambda note:note['createdAt'])
+                  return response(200,{'notes':notes})
+              if method!='POST': return response(405,{'error':'Method not allowed.'})
+              if headers.get('origin') and headers['origin']!='https://beta.building-insights.org':
+                  return response(403,{'error':'Invalid origin.'})
+              if not headers.get('content-type','').startswith('application/json'): return response(415,{'error':'Use JSON.'})
+              raw=event.get('body') or ''
+              if event.get('isBase64Encoded'):
+                  import base64
+                  raw=base64.b64decode(raw).decode()
+              if len(raw.encode())>8192: return response(413,{'error':'Note too large.'})
+              try:
+                  data=json.loads(raw)
+                  page=normalise(data.get('pagePath'))
+                  author=data.get('author','').strip()
+                  message=data.get('message','').strip()
+                  anchor=data.get('anchor',{})
+                  if page not in PAGES or not 1<=len(author)<=80 or not 1<=len(message)<=600: raise ValueError()
+                  selector=anchor.get('selector','')
+                  if not isinstance(selector,str) or not 1<=len(selector)<=1000: raise ValueError()
+                  clean={'selector':selector}
+                  for field in ('xRatio','yRatio','documentXRatio','documentYRatio'):
+                      value=anchor[field]
+                      if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not 0<=value<=1: raise ValueError()
+                      clean[field]=value
+              except (ValueError,TypeError,KeyError,AttributeError):
+                  return response(400,{'error':'Invalid note. Add a name, suggestion, and page location.'})
+              note={'id':str(uuid.uuid4()),'pagePath':page,'author':author,'message':message,'anchor':clean,'createdAt':datetime.now(timezone.utc).isoformat()}
+              table.put_item(Item={'pagePath':page,'id':note['id'],'noteJson':json.dumps(note)},ConditionExpression='attribute_not_exists(id)')
+              return response(201,{'note':note})
+
+  NotesUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !Ref NotesFunction
+      AuthType: NONE
+  NotesUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunctionUrl
+      FunctionName: !Ref NotesFunction
+      Principal: '*'
+      FunctionUrlAuthType: NONE
+  NotesInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref NotesFunction
+      Principal: '*'
+      InvokedViaFunctionUrl: true
+
+  SiteDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: BIT password-protected beta review website
+        Enabled: true
+        HttpVersion: http2and3
+        IPV6Enabled: true
+        PriceClass: PriceClass_100
+        DefaultRootObject: index.html
+        Aliases: !If [HasBetaAlias, [beta.building-insights.org], !Ref 'AWS::NoValue']
+        Origins:
+          - Id: SiteBucket
+            DomainName: !GetAtt SiteBucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt OriginAccess.Id
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+          - Id: NotesApi
+            DomainName: !Select [2, !Split ['/', !GetAtt NotesUrl.FunctionUrl]]
+            CustomOriginConfig:
+              OriginProtocolPolicy: https-only
+              HTTPSPort: 443
+              OriginSSLProtocols: [TLSv1.2]
+        CacheBehaviors:
+          - PathPattern: '/api/*'
+            TargetOriginId: NotesApi
+            ViewerProtocolPolicy: https-only
+            AllowedMethods: [GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE]
+            CachedMethods: [GET, HEAD]
+            Compress: true
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
+            OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac
+            ResponseHeadersPolicyId: !Ref ResponseHeaders
+            FunctionAssociations:
+              - EventType: viewer-request
+                FunctionARN: !GetAtt AppRoutes.FunctionMetadata.FunctionARN
+        DefaultCacheBehavior:
+          TargetOriginId: SiteBucket
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          CachePolicyId: !Ref SiteCachePolicy
+          ResponseHeadersPolicyId: !Ref ResponseHeaders
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt AppRoutes.FunctionMetadata.FunctionARN
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 60
+          - ErrorCode: 404
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 60
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+      Tags:
+        - Key: Project
+          Value: BITWebsite
+        - Key: Environment
+          Value: beta
+
+  SiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: CloudFrontRead
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub '${SiteBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${SiteDistribution}'
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource:
+              - !GetAtt SiteBucket.Arn
+              - !Sub '${SiteBucket.Arn}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+Outputs:
+  BucketName:
+    Value: !Ref SiteBucket
+  DistributionId:
+    Value: !Ref SiteDistribution
+  DistributionDomainName:
+    Value: !GetAtt SiteDistribution.DomainName
+  SiteUrl:
+    Value: https://beta.building-insights.org
+  NotesFunctionName:
+    Value: !Ref NotesFunction
+  NotesTableName:
+    Value: !Ref NotesTable
+  NotesFunctionUrl:
+    Value: !GetAtt NotesUrl.FunctionUrl
