@@ -16,7 +16,7 @@ Beta stack: `bit-website-beta-review` in `ca-central-1`. Template: `infra/beta-r
 
 Publish content updates with `./infra/deploy-review.sh`. It refuses the historical production destination. Do not use `infra/deploy-site.sh` for beta changes: that historical script targets production.
 
-The beta hostname is transferred using CloudFront's same-account alias move. Only that alias is removed from the historical distribution; its production aliases, content, origins and behaviors remain unchanged. DNS should point the beta CNAME to `dj0cbhlehcc04.cloudfront.net` (the old CNAME may still reach beta through CloudFront hostname routing, but should be updated before retiring the old distribution).
+The beta hostname is transferred using CloudFront's same-account `update-domain-association` operation. Only that alias is removed from the historical distribution; its production aliases, content, origins and behaviors remain unchanged. DNS should point the beta CNAME to `dj0cbhlehcc04.cloudfront.net` (the old CNAME may still reach beta through CloudFront hostname routing, but should be updated before retiring the old distribution).
 
 The production CloudFormation template on main still lists the beta alias from the prior promotion. Before any future production infrastructure update, remove that retired beta alias from its template to avoid attempting to reclaim the new beta domain.
 
